@@ -5,6 +5,7 @@ __pycache__/
 
 # Virtual environment
 venv/
+rag_env/
 
 # Environment variables
 .env
@@ -16,23 +17,30 @@ venv/
 # Logs
 *.log
 
-# OS junk
+# OS junk files
 .DS_Store
 Thumbs.db
 
-# Test coverage
+# Test coverage and test cache
 htmlcov/
 .coverage
 .cache/
-
-# Pytest
 .pytest_cache/
 
-# Jupyter Notebook checkpoints
+# Jupyter Notebook
 .ipynb_checkpoints/
 
-# MyPy
+# MyPy and Pydantic
 .mypy_cache/
+pdm.toml
 
-# Pydantic generated cache
-.pdm.toml
+# SQLite database
+rag_app.db
+
+# Uploaded files
+uploads/
+
+# FastAPI auto-generated cache
+*.sqlite3
+
+
