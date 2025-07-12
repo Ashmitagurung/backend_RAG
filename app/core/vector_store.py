@@ -4,6 +4,13 @@ from app.config import settings
 import uuid
 import time
 
+import os
+
+api_key = os.getenv("PINECONE_API_KEY")
+if not api_key:
+    raise ValueError("PINECONE_API_KEY is required")
+
+
 class VectorStore:
     def __init__(self):
         if not settings.PINECONE_API_KEY:
