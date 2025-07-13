@@ -18,6 +18,9 @@ class DocumentMetadata(Base):
     file_size = Column(Integer, nullable=False)
     processed = Column(Boolean, default=True)
 
+    def __repr__(self):
+        return f"<DocumentMetadata(id={self.id}, filename='{self.filename}')>"
+
 class BookingRequest(Base):
     __tablename__ = "booking_requests"
     
@@ -29,3 +32,6 @@ class BookingRequest(Base):
     status = Column(String, default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
     notes = Column(Text, nullable=True)
+
+    def __repr__(self):
+        return f"<BookingRequest(id={self.id}, full_name='{self.full_name}', date={self.booking_date})>"
