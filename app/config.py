@@ -10,15 +10,19 @@ class Settings(BaseSettings):
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379
     REDIS_DB: int = 0
+    REDIS_PASSWORD: Optional[str] = None
     
     # Vector DB (Pinecone)
     PINECONE_API_KEY: str = ""
-    PINECONE_ENVIRONMENT: str = "us-west1-gcp-free"
+    PINECONE_ENVIRONMENT: str = "us-east-1"
     PINECONE_INDEX_NAME: str = "rag-index"
     
-    # OpenAI/Embeddings
-    OPENAI_API_KEY: str = ""
-    EMBEDDING_MODEL: str = "text-embedding-ada-002"
+    # Embeddings
+    EMBEDDING_MODEL: str = "sentence-transformer"
+    EMBEDDING_DIMENSION: int = 384
+    
+    # OpenAI (Optional)
+    OPENAI_API_KEY: Optional[str] = None
     
     # Email SMTP
     SMTP_SERVER: str = "smtp.gmail.com"
@@ -30,6 +34,10 @@ class Settings(BaseSettings):
     MAX_FILE_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_EXTENSIONS: Set[str] = {".pdf", ".txt"}
     DEBUG: bool = False
+    
+    # Chunking defaults
+    DEFAULT_CHUNK_SIZE: int = 1000
+    DEFAULT_CHUNK_OVERLAP: int = 200
     
     class Config:
         env_file = ".env"
