@@ -28,12 +28,12 @@ class RedisMemoryStore:
             )
             # Test connection
             self.redis_client.ping()
-            logger.info("✅ Redis connection established")
+            logger.info("Redis connection established")
         except (redis.ConnectionError, redis.TimeoutError) as e:
-            logger.warning(f"⚠️ Redis connection failed, using in-memory fallback: {e}")
+            logger.warning(f" Redis connection failed, using in-memory fallback: {e}")
             self.redis_client = None
         except Exception as e:
-            logger.error(f"❌ Redis initialization error: {e}")
+            logger.error(f" Redis initialization error: {e}")
             self.redis_client = None
     
     def _get_conversation_key(self, session_id: str) -> str:
@@ -49,7 +49,7 @@ class RedisMemoryStore:
             else:
                 self._memory_store[self._get_conversation_key(session_id)] = conversation
         except Exception as e:
-            logger.error(f"❌ Failed to store conversation: {e}")
+            logger.error(f" Failed to store conversation: {e}")
             # Fallback to memory store
             self._memory_store[self._get_conversation_key(session_id)] = conversation
     
@@ -65,7 +65,7 @@ class RedisMemoryStore:
                 return self._memory_store.get(key, [])
                 
         except Exception as e:
-            logger.error(f"❌ Failed to get conversation: {e}")
+            logger.error(f" Failed to get conversation: {e}")
             return []
     
     def add_message(self, session_id: str, message: Dict):
@@ -78,7 +78,7 @@ class RedisMemoryStore:
                 conversation = conversation[-50:]
             self.store_conversation(session_id, conversation)
         except Exception as e:
-            logger.error(f"❌ Failed to add message: {e}")
+            logger.error(f" Failed to add message: {e}")
     
     def clear_conversation(self, session_id: str):
         """Clear conversation history"""
@@ -91,7 +91,7 @@ class RedisMemoryStore:
                 self._memory_store.pop(key, None)
                 
         except Exception as e:
-            logger.error(f"❌ Failed to clear conversation: {e}")
+            logger.error(f" Failed to clear conversation: {e}")
     
     def get_all_sessions(self) -> List[str]:
         """Get all active session IDs"""
@@ -103,7 +103,7 @@ class RedisMemoryStore:
                 keys = list(self._memory_store.keys())
                 return [key.replace("conversation:", "") for key in keys if key.startswith("conversation:")]
         except Exception as e:
-            logger.error(f"❌ Failed to get sessions: {e}")
+            logger.error(f"Failed to get sessions: {e}")
             return []
 
 # Global instance

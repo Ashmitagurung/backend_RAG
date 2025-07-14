@@ -13,7 +13,7 @@ import PyPDF2
 import io
 
 # ✅ Use shared vector_store instance to avoid re-initializing Pinecone every request
-from app.core.vector_store_instance import vector_store
+from app.core.vector_store import vector_store
 
 router = APIRouter()
 
