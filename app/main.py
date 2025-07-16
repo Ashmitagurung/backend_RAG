@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
         
         # Create database tables
         create_tables()
-        logger.info("✅ Database tables created successfully")
+        logger.info("Database tables created successfully")
         
         # Test connections
         from app.db.redis_memory import memory_store
@@ -31,32 +31,32 @@ async def lifespan(app: FastAPI):
         # Test Redis connection
         try:
             memory_store.redis_client.ping() if memory_store.redis_client else None
-            logger.info("✅ Redis connection successful")
+            logger.info("Redis connection successful")
         except Exception as e:
-            logger.warning(f"⚠️ Redis connection failed, using in-memory fallback: {e}")
+            logger.warning(f" Redis connection failed, using in-memory fallback: {e}")
         
         # Test Pinecone connection
         try:
             vector_store.test_connection()
-            logger.info("✅ Pinecone connection successful")
+            logger.info(" Pinecone connection successful")
         except Exception as e:
-            logger.error(f"❌ Pinecone connection failed: {e}")
+            logger.error(f" Pinecone connection failed: {e}")
             
-        logger.info("🚀 Application startup complete")
+        logger.info(" Application startup complete")
         
     except Exception as e:
-        logger.error(f"❌ Failed to initialize application: {e}")
+        logger.error(f" Failed to initialize application: {e}")
         raise
     
     yield
     
     # Shutdown
-    logger.info("🔄 Application shutdown")
+    logger.info(" Application shutdown")
 
 # Create FastAPI app instance
 app = FastAPI(
     title="RAG Backend API",
-    description="A production-ready RAG backend with document processing and booking system",
+    description="A production-ready RAG backend",
     version="1.0.0",
     lifespan=lifespan
 )
@@ -79,7 +79,7 @@ app.include_router(booking.router, prefix="/api/v1/booking", tags=["Booking"])
 @app.get("/")
 async def root():
     return {
-        "message": "RAG Backend API is running 🚀",
+        "message": "RAG Backend API is running ",
         "version": "1.0.0",
         "status": "healthy"
     }
